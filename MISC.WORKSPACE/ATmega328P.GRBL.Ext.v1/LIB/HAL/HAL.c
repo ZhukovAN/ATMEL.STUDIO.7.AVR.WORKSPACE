@@ -11,7 +11,7 @@ inline void InitAll(void) {
 
 	// InitPort
 	PORTD = 0;
-	// DDRD |= (1 << PORTD2) | (1 << PORTD3) | (1 << PORTD4);
+	// DDRD |= (1 << PORTD2) | (1 << PORTD3) | (1 << PORTD4) | (1 << PORTD6);
 
 	//Init ADC
 

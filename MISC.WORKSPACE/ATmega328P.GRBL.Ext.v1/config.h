@@ -10,8 +10,8 @@
 #define CONFIG_H_
 
 // Величины буферов UART
-#define UART_TX_BUFFER_SIZE 24
-#define UART_RX_BUFFER_SIZE 16
+#define UART_TX_BUFFER_SIZE 2
+#define UART_RX_BUFFER_SIZE 128
 
 
 #endif /* CONFIG_H_ */

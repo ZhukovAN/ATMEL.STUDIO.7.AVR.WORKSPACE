@@ -47,3 +47,29 @@ void d4off() {
     PORTD &= ~(1 << PORTD4);
     #endif
 }
+
+void d5on() {
+	#ifdef DEBUG
+	PORTD |= (1 << PORTD5);
+	SetTimerTask(d5off, 100);
+	#endif
+};
+
+void d5off() {
+	#ifdef DEBUG
+	PORTD &= ~(1 << PORTD5);
+	#endif
+}
+
+void d6on() {
+	#ifdef DEBUG
+	PORTD |= (1 << PORTD6);
+	SetTimerTask(d6off, 1000);
+	#endif
+};
+
+void d6off() {
+	#ifdef DEBUG
+	PORTD &= ~(1 << PORTD6);
+	#endif
+}

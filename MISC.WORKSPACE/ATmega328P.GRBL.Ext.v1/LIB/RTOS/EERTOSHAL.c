@@ -3,7 +3,7 @@
 
 //RTOS Запуск системного таймера
 inline void RunRTOS (void) {
-#ifdef __AVR_ATmega328P__
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
 	// TCCR2A:: WGM22 = 0, WGM21 = 1, WGM20 = 0 - CTC mode
 	// TCCR2B:: CS22 = 1, CS21 = 0, CS20 = 0 - Prescaler 64
 	TCCR2A = 1 << WGM21;

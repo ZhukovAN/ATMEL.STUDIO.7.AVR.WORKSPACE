@@ -19,6 +19,10 @@ extern void d3on();
 extern void d3off();
 extern void d4on();
 extern void d4off();
+extern void d5on();
+extern void d5off();
+extern void d6on();
+extern void d6off();
 
 #ifdef __cplusplus
 }

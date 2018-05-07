@@ -17,12 +17,18 @@ extern "C" {
 }
 #endif
 
+#define BLBIT   3
 #define ENBIT   2
 #define RWBIT   1
 #define RSBIT   0
 #define En (1 << ENBIT) // Enable bit
 #define Rw (1 << RWBIT) // Read/Write bit
 #define Rs (1 << RSBIT) // Register select bit
+
+// flags for backlight control
+#define LCD_BACKLIGHT (1 << BLBIT)
+#define LCD_NOBACKLIGHT 0x00
+
 
 // Commands
 #define LCD_CLEARDISPLAY 0x01
@@ -168,8 +174,8 @@ uint8_t HD44780::getData(uint16_t theIdx) {
 		l_int4Bit |= Rs;
 	switch (l_intStep) {
 		case 1 :
-		case 4 : return l_int4Bit | En;
-		default : return l_int4Bit & ~En;
+		case 4 : return l_int4Bit | En | this->m_intBackLight;
+		default : return l_int4Bit & ~En | this->m_intBackLight;
 	}
 }
 
@@ -209,11 +215,11 @@ void HD44780::begin() {
 	if ((0 != this->m_intCharSize) && (1 == this->m_intRows))
 		this->m_intDisplayFunction |= LCD_5x10DOTS;
 	this->command(0x03 << 4, true);
+	//_delay_us(4500);
+	//this->command(0x03 << 4, true);
 	_delay_us(4500);
-	return;
 	this->command(0x03 << 4, true);
 	_delay_us(150);
-	this->command(0x03 << 4, true);
 	this->command(0x02 << 4, true);
 	// Перешли в четырехбитный режим
 	this->command(LCD_FUNCTIONSET | this->m_intDisplayFunction);
@@ -238,7 +244,9 @@ bool HD44780::display() {
 
 bool HD44780::clear() {
 	// clear display, set cursor position to zero
-	return this->command(LCD_CLEARDISPLAY);	
+	bool l_boolRes = this->command(LCD_CLEARDISPLAY);
+	_delay_us(1520);
+	return l_boolRes;
 }
 
 bool HD44780::home() {
@@ -266,6 +274,10 @@ void HD44780::onSendComplete() {
 	this->releaseI2C();
 	if (NULL != this->m_ptrOnSendComplete)
 		this->m_ptrOnSendComplete();
+}
+
+void HD44780::backlight(bool theValue) {
+	this->m_intBackLight = theValue ? LCD_BACKLIGHT : LCD_NOBACKLIGHT;
 }
 
 HD44780::~HD44780() {

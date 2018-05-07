@@ -24,6 +24,7 @@ class HD44780 {
 		bool clear();
 		bool home();
 		bool printAt(uint8_t theCol, uint8_t theRow, char* theData, uint8_t theLength);
+		void backlight(bool theValue);
 	protected:
 		uint8_t m_intAddr;
 		uint8_t m_intCols;
@@ -38,6 +39,7 @@ class HD44780 {
 		uint8_t m_intDisplayMode;
 		uint8_t m_intDisplayFunction;	
 		uint8_t m_intCharSize;	
+		uint8_t m_intBackLight;
 	private:
 		// Запуск I2C-передачи команды (если не 0) и данных:
 		// В синхронном и асинхронном режимах

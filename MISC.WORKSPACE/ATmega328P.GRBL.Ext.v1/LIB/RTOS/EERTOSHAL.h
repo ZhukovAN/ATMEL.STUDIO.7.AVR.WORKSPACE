@@ -18,7 +18,7 @@ extern "C" {
 #define Enable_Interrupt	sei();
 
 //RTOS Config
-#ifdef __AVR_ATmega328P__
+#if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega328__)
 #define RTOS_ISR  			TIMER2_COMPA_vect
 #define USART_RXC_vect      USART_RX_vect
 #elif defined (__AVR_ATmega8__)
